@@ -10,26 +10,22 @@
              :rules="rules"
              ref="ruleForm"
              class="container-box">
-      <el-form-item label="1，请输入项目的appid（方舟项目唯一标示）:"
+      <el-form-item label="1、请输入项目的appid（方舟项目唯一标示）:"
                     prop="appid">
         <el-input v-model="ruleForm.appid"></el-input>
       </el-form-item>
-      <el-form-item label="2，请输入项目的uploadUrl（数据接收地址）:"
+      <el-form-item label="2、请输入项目的uploadUrl（数据接收地址）:"
                     prop="uploadURL">
         <el-input v-model="ruleForm.uploadURL"></el-input>
       </el-form-item>
-      <el-form-item label="3，SDK文件存放地址（相对于app.js或绝对路径）:"
-                    prop="SDKURL">
-        <el-input v-model="ruleForm.SDKURL"></el-input>
-      </el-form-item>
-      <el-form-item label="4，设置是否追踪新用户的首次属性"
+      <el-form-item label="3、设置是否追踪新用户的首次属性"
                     prop="interMet">
         <el-radio-group v-model="ruleForm.interMet">
           <el-radio label="1">追踪</el-radio>
           <el-radio label="2">不追踪</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="5，选择iOS SDK集成方式"
+      <el-form-item label="4、选择iOS SDK集成方式"
                     prop="resource">
         <el-radio-group v-model="ruleForm.resource">
           <el-radio label="1">Objective-C 集成</el-radio>

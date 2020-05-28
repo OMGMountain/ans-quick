@@ -10,19 +10,19 @@
              :rules="rules"
              ref="ruleForm"
              class="container-box">
-      <el-form-item label="1，请输入项目的appid（方舟项目唯一标示）:"
+      <el-form-item label="1、请输入项目的appid（方舟项目唯一标示）:"
                     prop="appid">
         <el-input v-model="ruleForm.appid"></el-input>
       </el-form-item>
-      <el-form-item label="2，请输入项目的uploadUrl（数据接收地址）:"
+      <el-form-item label="2、请输入项目的uploadUrl（数据接收地址）:"
                     prop="uploadURL">
         <el-input v-model="ruleForm.uploadURL"></el-input>
       </el-form-item>
-      <el-form-item label="3，SDK文件存放地址（相对于app.js或绝对路径）:"
+      <el-form-item label="3、SDK文件存放地址（相对于app.js或绝对路径）:"
                     prop="SDKURL">
         <el-input v-model="ruleForm.SDKURL"></el-input>
       </el-form-item>
-      <el-form-item label="4，是否开启页面的自动采集"
+      <el-form-item label="4、是否开启页面的自动采集"
                     prop="auto"
                     class="ui-pageView">
         <el-checkbox-group v-model="ruleForm.auto"
@@ -35,7 +35,7 @@
                        name="auto">采集绑定事件元素点击（全埋点需要选择这个）</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="5，微信小程序SDK集成方式"
+      <el-form-item label="5、微信小程序SDK集成方式"
                     prop="resource">
         <el-radio-group v-model="ruleForm.resource">
           <el-radio label="1">ES6方式集成</el-radio>
