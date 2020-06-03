@@ -126,10 +126,7 @@ export default {
             this.interMetStr = false
           }
           //es6 集成
-          this.ruleForm.desc = "public class AnalysysApplication extends Application { \n" +
-            "    @Override \n" +
-            "    public void onCreate() { \n" +
-            "        super.onCreate(); \n" +
+          this.ruleForm.desc = "private void initAnalysysSDKWithOptions(Context mContext) {\n" +
             "        //设置 打开 debug 模式，上线时请屏蔽 \n" +
             "        AnalysysAgent.setDebugMode(this, 2);\n" +
             "        //对SDK开始初始化\n" +
@@ -144,9 +141,8 @@ export default {
             "        config.setAutoTrackPageView(" + this.autoPageView + ");\n" +
             "        //调用SDK初始接口\n" +
             "        AnalysysAgent.init(this, config);\n" +
-            "        //设置上传地址，http://example.com:port为您上报地址\n" +
-            "        AnalysysAgent.setUploadURL(mContext,\"" + this.ruleForm.uploadURL + "\" + );\n" +
-            "    }\n" +
+            "        //设置上传地址\n" +
+            "        AnalysysAgent.setUploadURL(mContext,\"" + this.ruleForm.uploadURL + "\");\n" +
             "}"
 
         } else {

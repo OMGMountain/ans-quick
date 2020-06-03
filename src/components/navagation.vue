@@ -56,13 +56,13 @@ export default {
 /* 头部导航 */
 .ui-tab {
   width: 1000px;
-  height: 40px;
   margin: 0 auto 10px;
+  overflow: hidden;
 }
 .ui-tab-item {
   float: left;
-  width: 25%;
-  height: 100%;
+  width: 250px;
+  height: 40px;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -91,5 +91,24 @@ a {
 }
 .router-link-exact-active {
   color: #0097e0;
+}
+/* 适配下移动端UI */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .ui-tab {
+    width: 100%;
+    height: 120px;
+  }
+  .ui-tab-item {
+    margin-left: 50px;
+  }
+}
+/*  */
+@media screen and (min-width: 320px) and (max-width: 750px) {
+  .ui-tab {
+    width: 100%;
+  }
+  .ui-tab-item {
+    margin-left: 50px;
+  }
 }
 </style>

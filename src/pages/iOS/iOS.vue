@@ -113,7 +113,7 @@ export default {
               this.interMetStr = "NO"
             }
             this.ruleForm.desc = "//  1.导入头文件：#import <AnalysysAgent/AnalysysAgent.h> 2.调用方法：\n" +
-              "- (void)_initAnalysysSDKWithOptions:(NSDictionary *)launchOptions { \n" +
+              "- (void) initAnalysysSDKWithOptions:(NSDictionary *)launchOptions { \n" +
               "     // AnalysysAgent 配置信息 \n" +
               "     AnalysysConfig.appKey = @\"" + this.ruleForm.appid + "\";\n" +
               "     AnalysysConfig.channel = @\"App Store\"; // 设置渠道\n" +
