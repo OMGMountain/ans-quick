@@ -5,6 +5,7 @@
       <a class="quick-doc"
          href="https://docs.analysys.cn/ark/integration/sdk/ios">{{msgText}}</a>
     </h2>
+    <navagation></navagation>
     <!-- 输入框位置 -->
     <el-form :model="ruleForm"
              :rules="rules"
@@ -49,8 +50,13 @@
 </template>
 
 <script>
+import navagation from "../../components/navagation"
+
 export default {
   name: 'iOS',
+  components: {
+    Navagation: navagation,
+  },
   data () {
     return {
       msg: '易观方舟iOSSDK快速接入',

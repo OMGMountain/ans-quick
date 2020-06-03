@@ -11,6 +11,10 @@ Vue.use(Router)
 export default new Router({
     routes: [
         {
+            path: "/",
+            redirect: { name: "js" }
+        },
+        {
             path: '/js',
             name: 'JavaScript',
             component: JavaScript

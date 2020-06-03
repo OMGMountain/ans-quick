@@ -5,6 +5,7 @@
       <a class="quick-doc"
          href="https://docs.analysys.cn/ark/integration/sdk/android">{{msgText}}</a>
     </h2>
+    <navagation></navagation>
     <!-- 输入框位置 -->
     <el-form :model="ruleForm"
              :rules="rules"
@@ -18,9 +19,12 @@
                     prop="uploadURL">
         <el-input v-model="ruleForm.uploadURL"></el-input>
       </el-form-item>
-      <el-form-item label="3，SDK文件存放地址（相对于app.js或绝对路径）:"
-                    prop="SDKURL">
-        <el-input v-model="ruleForm.SDKURL"></el-input>
+      <el-form-item label="3、设置是否追踪新用户的首次属性"
+                    prop="interMet">
+        <el-radio-group v-model="ruleForm.interMet">
+          <el-radio label="1">追踪</el-radio>
+          <el-radio label="2">不追踪</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="4，是否开启页面的自动采集"
                     prop="auto"
@@ -34,13 +38,6 @@
           <el-checkbox label="2"
                        name="auto">采集绑定事件元素点击（全埋点需要选择这个）</el-checkbox>
         </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="5，选择iOS SDK集成方式"
-                    prop="resource">
-        <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="1">Cocoapods集成</el-radio>
-          <el-radio label="2">CommonJS规范集成</el-radio>
-        </el-radio-group>
       </el-form-item>
       <el-form-item>
         <el-button type="primary"
@@ -59,22 +56,28 @@
 </template>
 
 <script>
+import navagation from "../../components/navagation"
+
 export default {
   name: 'Android',
+  components: {
+    Navagation: navagation,
+  },
   data () {
     return {
-      msg: '易观方舟iOSSDK快速接入',
-      msgText: 'iOSSDK说明文档',
+      msg: '易观方舟Android SDK快速接入',
+      msgText: 'Android SDK说明文档',
       time: new Date().getTime(),
       autoFidden: false,
       autoPageView: false,
       autoTrack: false,
+      interMetStr: "",
       ruleForm: {
         appid: '',
         uploadURL: '',
         SDKURL: '',
         auto: [],
-        resource: '',
+        interMet: "",
         desc: ''
       },
       rules: {
@@ -90,11 +93,11 @@ export default {
           { required: true, message: 'SDK文件的存放地址', trigger: 'blur' },
           { min: 1, max: 10000, message: '', trigger: 'blur' }
         ],
+        interMet: [
+          { required: true, message: '请选择追踪新用户的首次属性', trigger: 'change' }
+        ],
         auto: [
           { type: 'array', required: false, message: '', trigger: 'change' }
-        ],
-        resource: [
-          { required: true, message: '请选择集成方式', trigger: 'change' }
         ],
       }
     }
@@ -115,35 +118,37 @@ export default {
             this.autoPageView = false;
             this.autoTrack = false;
           }
-          //获取data 生成代码  集成方式
-          let integrationMethods = this.ruleForm.resource
+          // 查看是否追踪 
+          let autoProfile = this.ruleForm.interMet;
+          if (autoProfile == 1) {
+            this.interMetStr = true
+          } else {
+            this.interMetStr = false
+          }
           //es6 集成
-          if (integrationMethods == 1) {
-            this.ruleForm.desc = " //app.js \n" +
-              "import AnalysysAgent from \"" + this.ruleForm.SDKURL + "/AnalysysAgent_WX_SDK.min.js\"  //基础版本 sdk \n" +
-              "import AnalysysEncryption from \"" + this.ruleForm.SDKURL + "/AnalysysAgent_encryption.min.js\"   //加密板块，需要的话单独引入。\n" +
-              "AnalysysAgent.encrypt = AnalysysEncryption;\n" +
-              "AnalysysAgent.debugMode = 2 \n" +
-              "AnalysysAgent.appkey = " + this.ruleForm.appid + "\n" +
-              "AnalysysAgent.uploadURL = " + this.ruleForm.uploadUR + "\n" +
-              "AnalysysAgent.auto = " + this.autoPageView + "\n" +
-              "AnalysysAgent.autoTrack = " + this.autoTrack;
-            console.log(this.ruleForm.desc);
+          this.ruleForm.desc = "public class AnalysysApplication extends Application { \n" +
+            "    @Override \n" +
+            "    public void onCreate() { \n" +
+            "        super.onCreate(); \n" +
+            "        //设置 打开 debug 模式，上线时请屏蔽 \n" +
+            "        AnalysysAgent.setDebugMode(this, 2);\n" +
+            "        //对SDK开始初始化\n" +
+            "        AnalysysConfig config = new AnalysysConfig();\n" +
+            "        // 设置追踪新用户的首次属性\n" +
+            "        config.setAutoProfile(" + this.interMetStr + ");\n" +
+            "        //设置key\n" +
+            "        config.setAppKey(\"" + this.ruleForm.appid + "\");\n" +
+            "        //设置控件点击自动上报总开关\n" +
+            "        config.setAutoTrackClick(" + this.autoTrack + ");\n" +
+            "        // 设置pageView自动上报总开关\n" +
+            "        config.setAutoTrackPageView(" + this.autoPageView + ");\n" +
+            "        //调用SDK初始接口\n" +
+            "        AnalysysAgent.init(this, config);\n" +
+            "        //设置上传地址，http://example.com:port为您上报地址\n" +
+            "        AnalysysAgent.setUploadURL(mContext,\"" + this.ruleForm.uploadURL + "\" + );\n" +
+            "    }\n" +
+            "}"
 
-          }
-          //非es6 集成
-          if (integrationMethods == 2) {
-            this.ruleForm.desc = " //app.js \n" +
-              "let AnalysysAgent = require(\"" + this.ruleForm.SDKURL + "/AnalysysAgent_WX_SDK.min.js\")  //基础版本版本 sdk \n" +
-              "let AnalysysEncryption = require(\"" + this.ruleForm.SDKURL + "/AnalysysAgent_encryption.min.js\")   //加密板块，需要的话单独引入。\n" +
-              "AnalysysAgent.encrypt = AnalysysEncryption;\n" +
-              "AnalysysAgent.debugMode = 2 \n" +
-              "AnalysysAgent.appkey = " + this.ruleForm.appid + "\n" +
-              "AnalysysAgent.uploadURL = " + this.ruleForm.uploadUR + "\n" +
-              "AnalysysAgent.auto = " + this.autoPageView + "\n" +
-              "AnalysysAgent.autoTrack = " + this.autoTrack;
-            console.log(this.ruleForm.desc);
-          }
         } else {
           return false;
         }

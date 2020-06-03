@@ -5,6 +5,7 @@
       <a class="quick-doc"
          href="https://docs.analysys.cn/ark/integration/sdk/wx">{{msgText}}</a>
     </h2>
+    <Navagation></Navagation>
     <!-- 输入框位置 -->
     <el-form :model="ruleForm"
              :rules="rules"
@@ -59,8 +60,13 @@
 </template>
 
 <script>
+import navagation from "../../components/navagation"
+
 export default {
   name: 'wechatProgram',
+  components: {
+    Navagation: navagation,
+  },
   data () {
     return {
       msg: '易观方舟微信小程序SDK快速接入',
@@ -121,11 +127,9 @@ export default {
           if (integrationMethods == 1) {
             this.ruleForm.desc = " //app.js \n" +
               "import AnalysysAgent from \"" + this.ruleForm.SDKURL + "/AnalysysAgent_WX_SDK.min.js\"  //基础版本 sdk \n" +
-              "import AnalysysEncryption from \"" + this.ruleForm.SDKURL + "/AnalysysAgent_encryption.min.js\"   //加密板块，需要的话单独引入。\n" +
-              "AnalysysAgent.encrypt = AnalysysEncryption;\n" +
               "AnalysysAgent.debugMode = 2 \n" +
-              "AnalysysAgent.appkey = " + this.ruleForm.appid + "\n" +
-              "AnalysysAgent.uploadURL = " + this.ruleForm.uploadUR + "\n" +
+              "AnalysysAgent.appkey = \"" + this.ruleForm.appid + "\"\n" +
+              "AnalysysAgent.uploadURL = \"" + this.ruleForm.uploadURL + "\"\n" +
               "AnalysysAgent.auto = " + this.autoPageView + "\n" +
               "AnalysysAgent.autoTrack = " + this.autoTrack;
             console.log(this.ruleForm.desc);
@@ -134,12 +138,10 @@ export default {
           //非es6 集成
           if (integrationMethods == 2) {
             this.ruleForm.desc = " //app.js \n" +
-              "let AnalysysAgent = require(\"" + this.ruleForm.SDKURL + "/AnalysysAgent_WX_SDK.min.js\")  //基础版本版本 sdk \n" +
-              "let AnalysysEncryption = require(\"" + this.ruleForm.SDKURL + "/AnalysysAgent_encryption.min.js\")   //加密板块，需要的话单独引入。\n" +
-              "AnalysysAgent.encrypt = AnalysysEncryption;\n" +
+              "let AnalysysAgent = require(\"" + this.ruleForm.SDKURL + "/AnalysysAgent_WX_SDK.min.js\")  //基础版本 sdk \n" +
               "AnalysysAgent.debugMode = 2 \n" +
-              "AnalysysAgent.appkey = " + this.ruleForm.appid + "\n" +
-              "AnalysysAgent.uploadURL = " + this.ruleForm.uploadUR + "\n" +
+              "AnalysysAgent.appkey = \"" + this.ruleForm.appid + "\"\n" +
+              "AnalysysAgent.uploadURL = \"" + this.ruleForm.uploadURL + "\"\n" +
               "AnalysysAgent.auto = " + this.autoPageView + "\n" +
               "AnalysysAgent.autoTrack = " + this.autoTrack;
             console.log(this.ruleForm.desc);

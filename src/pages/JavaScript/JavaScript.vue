@@ -5,6 +5,8 @@
       <a class="quick-doc"
          href="https://docs.analysys.cn/ark/integration/sdk/js">{{msgText}}</a>
     </h2>
+    <!-- 切换表头 -->
+    <navagation></navagation>
     <!-- 输入框位置 -->
     <el-form :model="ruleForm"
              :rules="rules"
@@ -62,8 +64,12 @@
 </template>
 
 <script>
+import navagation from "../../components/navagation"
 export default {
   name: 'javascript',
+  components: {
+    Navagation: navagation,
+  },
   data () {
     return {
       msg: '易观方舟JavaScriptSDK快速接入',
@@ -150,12 +156,12 @@ export default {
               "           n = d.getElementsByTagName('script')[0];\n" +
               "       c.type = 'text/javascript';\n" +
               "       c.async = true;\n" +
-              "       c.id = 'ARK_SDK';\n" +
-              "       c.src = " + this.ruleForm.SDKURL + '?v=' + this.time + "//JS SDK存放地址\n" +
+              "       c.id = \"ARK_SDK';\n" +
+              "       c.src = \"" + this.ruleForm.SDKURL + "?v=" + this.time + "\"//JS SDK存放地址\n" +
               "       n.parentNode.insertBefore(c, n);\n" +
               "   })({\n" +
-              "           appkey: " + this.ruleForm.appid + ", //APPKEY\n" +
-              "           uploadURL: " + this.ruleForm.uploadURL + ",//上传数据的地址\n" +
+              "           appkey: \"" + this.ruleForm.appid + "\", //APPKEY\n" +
+              "           uploadURL: \"" + this.ruleForm.uploadURL + "\",//上传数据的地址\n" +
               "           auto:" + this.autoPageView + ",// 是否开启自动采集\n" +
               "           autoTrack:" + this.autoTrack + ",// 是否开启全埋点\n" +
               "    })\n" +
@@ -184,8 +190,8 @@ export default {
               "               AnalysysAgent[key](config[key]);\n" +
               "           }\n" +
               "      })({\n" +
-              "          appkey: " + this.ruleForm.appid + ", //APPKEY\n" +
-              "          uploadURL: " + this.ruleForm.uploadURL + ",//上传数据的地址\n" +
+              "          appkey: \"" + this.ruleForm.appid + "\", //APPKEY\n" +
+              "          uploadURL: \"" + this.ruleForm.uploadURL + "\",//上传数据的地址\n" +
               "          auto:" + this.autoPageView + ",// 是否开启自动采集\n" +
               "          autoTrack:" + this.autoTrack + ",// 是否开启全埋点\n" +
               "      })\n" +
@@ -201,8 +207,8 @@ export default {
               "//自行下载SDK\n" +
               "//import AnalysysAgent from '" + this.ruleForm.SDKURL + "'\n" +
               "AnalysysAgent.init({\n" +
-              "    appkey: " + this.ruleForm.appid + ", //APPKEY\n" +
-              "    uploadURL: " + this.ruleForm.uploadURL + ",//上传数据的地址\n" +
+              "    appkey: \"" + this.ruleForm.appid + "\", //APPKEY\n" +
+              "    uploadURL: \"" + this.ruleForm.uploadURL + "\",//上传数据的地址\n" +
               "    auto:" + this.autoPageView + ",// 是否开启自动采集\n" +
               "    autoTrack:" + this.autoTrack + ",// 是否开启全埋点\n" +
               "    SDKFileDirectory: '" + this.ruleForm.SDKURL + "'//可视化与热图模块SDK存放目录。\n" +
@@ -212,8 +218,8 @@ export default {
           if (integrationMethods == 4) {
             this.ruleForm.desc = "var AnalysysAgent = require('ans-javascript-sdk')\n" +
               "AnalysysAgent.init({\n" +
-              "    appkey: " + this.ruleForm.appid + ", //APPKEY\n" +
-              "    uploadURL: " + this.ruleForm.uploadURL + ",//上传数据的地址\n" +
+              "    appkey: \"" + this.ruleForm.appid + "\", //APPKEY\n" +
+              "    uploadURL: \"" + this.ruleForm.uploadURL + "\",//上传数据的地址\n" +
               "    auto:" + this.autoPageView + ",// 是否开启自动采集\n" +
               "    autoTrack:" + this.autoTrack + ",// 是否开启全埋点\n" +
               "    SDKFileDirectory: '" + this.ruleForm.SDKURL + "'//可视化与热图模块SDK存放目录。\n" +
@@ -223,8 +229,8 @@ export default {
           if (integrationMethods == 5) {
             this.ruleForm.desc = "requirejs([\"" + this.ruleForm.SDKURL + "/AnalysysAgent_JS_SDK.min\"], function(AnalysysAgent) {\n" +
               "   AnalysysAgent.init({\n" +
-              "       appkey: " + this.ruleForm.appid + ", //APPKEY\n" +
-              "       uploadURL: " + this.ruleForm.uploadURL + ",//上传数据的地址\n" +
+              "       appkey: \"" + this.ruleForm.appid + "\", //APPKEY\n" +
+              "       uploadURL: \"" + this.ruleForm.uploadURL + "\",//上传数据的地址\n" +
               "       auto:" + this.autoPageView + ",// 是否开启自动采集\n" +
               "       autoTrack:" + this.autoTrack + ",// 是否开启全埋点\n" +
               "       SDKFileDirectory: '" + this.ruleForm.SDKURL + "'//可视化与热图模块SDK存放目录。\n" +
@@ -261,7 +267,6 @@ export default {
   font-size: 24px;
   font-weight: normal;
 }
-
 .quick-doc {
   display: block;
   width: 100%;
