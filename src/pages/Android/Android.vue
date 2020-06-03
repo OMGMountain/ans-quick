@@ -48,7 +48,8 @@
                     prop="desc">
         <el-input type="textarea"
                   v-model="ruleForm.desc"
-                  id="copyText"></el-input>
+                  id="copyText"
+                  style="min-height:100px"></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -227,5 +228,10 @@ export default {
   .el-radio {
     line-height: 3;
   }
+}
+</style>
+<style>
+#copyText {
+  min-height: 150px !important;
 }
 </style>
