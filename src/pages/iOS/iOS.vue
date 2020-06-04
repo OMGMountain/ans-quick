@@ -19,14 +19,7 @@
                     prop="uploadURL">
         <el-input v-model="ruleForm.uploadURL"></el-input>
       </el-form-item>
-      <el-form-item label="3、设置是否追踪新用户的首次属性"
-                    prop="interMet">
-        <el-radio-group v-model="ruleForm.interMet">
-          <el-radio label="1">追踪</el-radio>
-          <el-radio label="2">不追踪</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="4、选择iOS SDK集成方式"
+      <el-form-item label="3、选择iOS SDK集成方式"
                     prop="resource">
         <el-radio-group v-model="ruleForm.resource">
           <el-radio label="1">Objective-C 集成</el-radio>
@@ -65,12 +58,10 @@ export default {
       autoFidden: false,
       autoPageView: false,
       autoTrack: false,
-      interMetStr: "",
       ruleForm: {
         appid: '',
         uploadURL: '',
         SDKURL: '',
-        interMet: '',
         resource: '',
         desc: ''
       },
@@ -86,9 +77,6 @@ export default {
         SDKURL: [
           { required: true, message: 'SDK文件的存放地址', trigger: 'blur' },
           { min: 1, max: 10000, message: '', trigger: 'blur' }
-        ],
-        interMet: [
-          { required: true, message: '请选择追踪新用户的首次属性', trigger: 'change' }
         ],
         resource: [
           { required: true, message: '请选择集成方式', trigger: 'change' }
@@ -117,7 +105,6 @@ export default {
               "     // AnalysysAgent 配置信息 \n" +
               "     AnalysysConfig.appKey = @\"" + this.ruleForm.appid + "\";\n" +
               "     AnalysysConfig.channel = @\"App Store\"; // 设置渠道\n" +
-              "     AnalysysConfig.autoProfile = " + this.interMetStr + "; // 设置追踪新用户的首次属性 \n" +
               "     [AnalysysAgent startWithConfig:AnalysysConfig];\n\n" +
               "     #ifdef DEBUG \n" +
               "         [AnalysysAgent setDebugMode:AnalysysDebugButTrack];\n" +
@@ -141,7 +128,6 @@ export default {
               "     // AnalysysAgent 配置信息 \n" +
               "     AnalysysAgentConfig.shareInstance()?.appKey = \"" + this.ruleForm.appid + "\"\n" +
               "     AnalysysAgentConfig.shareInstance()?.channel = \"App Store\" // 设置渠道\n" +
-              "     AnalysysAgentConfig.shareInstance()?.autoProfile = " + this.interMetStr + " // 设置追踪新用户的首次属性\n" +
               "     AnalysysAgent.start(with: AnalysysAgentConfig.shareInstance())\n\n" +
               "     #if DEBUG \n" +
               "     AnalysysAgent.setDebugMode(.butTrack)\n" +
